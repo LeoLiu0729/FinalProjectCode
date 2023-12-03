@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer Banking</title>
+    <link rel="stylesheet" type="text/css" href="CreditCard/StylesheetCustomer.css">
+
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #D3D3D3;
+    }
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        background-color: #333333;
+        align-items: center;
+    }
+
+    .nav{
+        width: 100%;
+        padding: 10px 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+    }
+    nav ul {
+        width: 100%;
+        text-align: right;
+    }
+
+    nav ul li{
+        display: inline-block;
+        list-style: none;
+        margin: 0 20px;
+    }
+
+    nav ul li a{
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .logo {
+        width: 300px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        background-image: url("https://www.nerdwallet.com/assets/blog/wp-content/uploads/2021/11/GettyImages-637865206-2400x1440.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .account-summary, .transaction-history {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+    }
+
+    .account-summary h2, .transaction-history h2 {
+        font-size: 24px;
+        background-color: #DFCFBE;
+        padding: 10px;
+        margin: 0;
+    }
+
+    hr {
+        border: none;
+        margin: 10px 0;
+    }
+
+    .transaction-history {
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        overflow: scroll;
+        width: 300px;
+        height: 200px;
+    }
+
+
+    .transaction-background-color {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: #DFCFBE
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #0070c1;
+    }
+
+    .footer-background-color {
+        box-sizing: border-box;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        padding: 10px;
+    }
+
+    footer {
+        position: -ms-device-fixed;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color:  #CAF4F4;
+    }</style>
+
+</head>
+<body>
+<div style="text-align: center;">
+    <img src="https://i.imgur.com/cvXxGZe.png" alt="L.A.S Banking System Logo" class="logo">
+</div>
+<div class="hero">
+    <nav>
+        <ul>
+            <li><strong><a href="/home">Home</a></strong></li>
+            <li><strong><a href="/">|</a></strong></li>
+            <li><strong><a href="/">Contact</a></strong></li>
+            <li><strong><a href="/transfers/form">Transfer Funds</a></strong></li>
+            <li><strong><a href="/withdrawaldeposit/showForm">Withdrawal/Deposit</a></strong></li>
+            <li><strong><a href="/CreditCard/apply">Credit Card</a></strong></li> <!-- /CreditCard/apply -->
+            <li><strong><a href="/Loan/apply">Apply for loan</a></strong></li>
+            <form class="form-inline" th:action="@{/logout}" method="post">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+            </form>
+            <!-- <li><strong><a href="Prototype.html">Logout</a></strong></li> -->
+        </ul>
+    </nav>
+</div>
+
+<div class="main-content">
+    <section class="account-summary">
+    <h2 class="title-background-color">Account Summary</h2>
+        <p><strong>Account Number:</strong> <span th:text="${accountNumber}">.</span></p>
+        <p><strong>Account Balance:</strong> <span th:text="'$' + ${accountBalance}">.</span></p>
+        <p><strong>Account Type:</strong> Savings</p>
+    </section>
+    <hr>
+    <section class="transaction-history">
+        <h2>Transaction History</h2>
+        <hr>
+        <table class="Table">
+            <tr>
+                <th>Dates</th>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td>2023-12-23</td>
+                <td>Withdrawal</td>
+                <td>$85.00</td>
+            </tr>
+            <tr>
+                <td>2023-09-26</td>
+                <td>Withdrawal</td>
+                <td>$50.00</td>
+            </tr>
+            <tr>
+                <td>2023-09-25</td>
+                <td>Withdrawal</td>
+                <td>$100.00</td>
+            </tr>
+            <tr>
+                <td>2022-10-01</td>
+                <td>Deposit</td>
+                <td>$500.00</td>
+            </tr>
+        </table>
+    </section>
+</div>
+<hr class="bg-white my-2">
+<footer class="footer-background-color">
+    <div class="container">
+        <div class="mb-3">
+            &copy; 2023 L.A.S Banking System
+        </div>
+        <div class="mb-3">
+            Follow us on [Social Media Links Here]
+        </div>
+        <div class="d-inline-block mr-3">
+            <i class="fas fa-phone-alt"></i> Phone: 1-888-888-8888
+        </div>
+        <div class="d-inline-block">
+            <i class="fas fa-map-marker-alt"></i> Address: 1400 Spring Garden St, Greensboro, NC 27412
+        </div>
+    </div>
+</footer>
+</body>
+</html>
