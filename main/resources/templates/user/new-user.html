@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>Create New User</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #D3D3D3;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 50px auto;
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            footer {
+                position: -ms-device-fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+            }
+
+            h2 {
+                color: #0a66c2;
+                border-bottom: 2px solid #0a66c2;
+                padding-bottom: 10px;
+            }
+
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            .table th, .table td {
+                border: 1px solid #e1e1e1;
+                padding: 8px 12px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #0a66c2;
+                color: white;
+            }
+
+            .table tbody tr:hover {
+                background-color: #eef7fd;
+            }
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 0;
+                position: relative;
+            }
+
+            .logo {
+                position: absolute;
+                top: 5px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 150px;
+            }
+            .search-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+                gap: 15px;
+            }
+
+            .return-btn {
+                padding: 10px 20px;
+                background-color: #0a66c2;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+            .button:hover {
+                background-color: #005a8c;
+            }
+
+            .search-filter {
+                margin-top: 20px;
+                display: flex;
+                gap: 10px;
+            }
+
+            #searchInput, #filterDate {
+                padding: 10px;
+                border: 1px solid #e1e1e1;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+            .button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+            .button:hover {
+                transform: scale(1.05);
+            }
+            #employeeForm input[type="submit"], #addEmployeeBtn, #hireDate {
+                font-size: 20px;
+                padding: 15px 25px;
+            }
+
+
+            #searchButton {
+                background-color: #0070c1;
+                color: white;
+            }
+
+            #searchButton:hover {
+                background-color: #005a8c;
+            }
+
+            #clearButton {
+                background-color: #d9534f;
+                color: white;
+                margin-left: 10px;
+            }
+
+            #clearButton:hover {
+                background-color: #c9302c;
+            }
+            #clearButton {
+                background-color: #e74c3c;
+            }
+
+            #clearButton:hover {
+                background-color: #c0392b;
+            }
+            footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                padding-top: 100px;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.4);
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+            }
+
+            .close {
+                color: #aaaaaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <a href="/" class="return-btn">Return to homepage</a>
+
+        </nav>
+        <div class="container">
+
+            <div class="container">
+                <h2>Add New Employee Information</h2>
+
+            <div style="align-content: center;">
+                <form action="/user/create" method="post">
+                    <div class="form-group">
+                        <label for="user_name">UserName:</label>
+                        <input type="text" class="form-control" name="userName" id="userName" placeholder="Enter username" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select name="role" id="role"class="form-control form-control-sm">
+                            <option value="USER">Customer</option>
+                            <option value="BANKER">Banker</option>
+                            <option value="ADMIN">Manager</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="/user/all">Cancel</a>
+                </form>
+
+
+            </div>
+        </div>
+
+    </body>
+</html>
