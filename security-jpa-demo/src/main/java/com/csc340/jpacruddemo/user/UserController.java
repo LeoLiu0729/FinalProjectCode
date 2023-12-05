@@ -2,6 +2,11 @@ package com.csc340.jpacruddemo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +25,10 @@ public class UserController {
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping({"", "/"})
     public String userMenu(@RequestParam(name = "continue", required = false) String cont) {
@@ -68,4 +77,24 @@ public class UserController {
         model.addAttribute("user", service.getUser(id));
         return "user/update-user";
     }
+    @PostMapping("/openAccount")
+    public ResponseEntity<?> openAccount(@RequestBody User newUser) {
+        try {
+            newUser.setPassword(passwordEncoder.encode(newUser.getPassword())); // 加密密码
+            service.saveUser(newUser);
+            return new ResponseEntity<>("Account created successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @DeleteMapping("/closeAccount/{id}")
+    public ResponseEntity<?> closeAccount(@PathVariable long id) {
+        try {
+            service.deleteUser(id);
+            return new ResponseEntity<>("Account closed successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

@@ -1,5 +1,8 @@
 package com.csc340.jpacruddemo.Banker;
 
+import com.csc340.jpacruddemo.user.User;
+
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +28,7 @@ public class Banker {
     private String ssn;
     private String temporaryPassword;
     private double balance;
+    @OneToOne
+    @JoinColumn(name ="user_id")
+    private User user;
 }

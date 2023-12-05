@@ -1,5 +1,6 @@
 package com.csc340.jpacruddemo.LoanApplication;
 
+import com.csc340.jpacruddemo.CreditCardApplication.CreditCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,13 @@ public class LoanApplicationController {
 
     @Autowired
     private LoanApplicationService service;
+
+    @GetMapping("/apply")
+    public String showLoanApplicationPage(Model model) {
+        model.addAttribute("loanApplication", new CreditCard());
+
+        return "LoanApplication";
+    }
 
     @GetMapping
     public List<LoanApplication> getAllLoanApplications() {

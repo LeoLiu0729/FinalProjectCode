@@ -108,10 +108,5 @@ public class LoanApplicationService {
             return false;
         }
     }
-    public LoanApplication submitCustomerLoanApplication(LoanApplication loanApplication) {
-        // 你可以在这里添加任何特定于客户的逻辑
-        // 例如，设置状态为“PENDING”
-        loanApplication.setStatus("PENDING");
-        return saveOrUpdateLoanApplication(loanApplication);
-    }
+
 }

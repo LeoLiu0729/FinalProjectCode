@@ -135,5 +135,14 @@ public class UserService {
         return repo.findByUserName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
-
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return authentication.getName();
+        }
+        throw new RuntimeException("Unable to get current username");
+    }public User getUserByUserName(String userName) {
+        return repo.findByUserName(userName).orElseThrow(()
+                -> new UsernameNotFoundException(userName + "not found"));
+    }
 }
