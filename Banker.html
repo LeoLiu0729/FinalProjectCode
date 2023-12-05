@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #D3D3D3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      margin: 0;
+      padding: 0 0 120px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    .Title {
+      position: fixed;
+      top: 30px;
+      left: 170px;
+    }
+
+    .logo {
+      width: 300px;
+      height: auto;
+      margin-right: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #D3D3D3;
+      z-index: 10;
+    }
+
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    h4 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    input.form-control {
+      height: 20px;
+      font-size: 18px;
+    }
+
+    footer {
+      position: -ms-device-fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      background-image: url('https://www.bankatcnb.bank/assets/files/brluz7UT/black-woman-with-daughter-holding-piggy-bank%20SAVINGS.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    )
+
+    }
+    #bottom {
+      position: absolute;
+      bottom: 70px;
+      left: 0;
+    }
+    .mt-4 {
+      font-size: 20px;
+    }
+
+    .container  {
+      background-color: rgba(255,255,255,0.8);
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      margin: 50px auto;
+    }
+
+    .btn-success, .btn-danger {
+      font-size: 16px;
+      margin-right: 10px;
+      padding: 8px 12px;
+    }
+
+    .sidebar {
+      background-color: #0070c1;
+      width: 20%;
+      float: left;
+      padding-right: 20px;
+      box-sizing: border-box;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .nav-list li {
+      margin-bottom: 10px;
+    }
+
+
+    .nav-list a {
+      text-decoration: none;
+      color: #0070c1;
+      padding: 10px 20px;
+      display: block;
+      background-color: #f7f7f7;
+      border: 1px solid #0070c1;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .nav-list a:hover, .logout-button:hover {
+      background-color: #0070c1;
+      color: white;
+    }
+
+    .main-content {
+      width: 75%;
+      float: right;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      margin-bottom: 300px;
+    }
+
+    .main-content::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -600px;
+      height:  600px;
+      background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://assets.entrepreneur.com/content/3x2/2000/20170210163046-GettyImages-532097423.jpeg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+
+
+    .heading-container {
+      position: relative;
+      top: 60px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th, .table td, .table tr {
+      border: 1px solid #0070c1;
+      padding: 8px 12px;
+    }
+
+    .table th {
+      background-color: #0070c1;
+      color: white;
+    }
+
+    .logout-button {
+      font-size: 18px;
+      padding: 8px 16px;
+      color: #000;
+    }
+
+    .searchBarPosition {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end; /* Align content to the right */
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #searchBox {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: 1px solid #0070c1;
+      border-radius: 5px 0 0 5px;
+      width: 300px;
+    }
+
+    #searchBtn {
+      padding: 10px 15px;
+      background-color: #0070c1;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 0 5px 5px 0;
+    }
+
+    #searchBtn:hover {
+      background-color: #005a8c;
+    }
+    /* Modal Styles */
+    /* Style for the modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    /* Style for the modal content */
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto; /* Adjusted margin-top to move the popup higher */
+      padding: 20px;
+      border: 1px solid #0070c1;
+      border-radius: 5px;
+      width: 50%;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      position: relative;
+      text-align: left; /* Align the text within the modal to the left */
+      overflow-y: auto; /* Add vertical scrollbar when content overflows */
+      max-height: 70vh; /* Set a maximum height for the popup to ensure it remains within the viewport */
+    }
+
+    .modal-content label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .modal-content input[type="text"] {
+      width: calc(100% - 20px); /* Adjusted width with 20px padding on the right */
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #0070c1;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    /* Style for the close button */
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    /* Style for the submit button within the modal content */
+    .modal-content .submit-button {
+      padding: 15px 30px; /* Adjust padding as needed */
+      font-size: 18px; /* Adjust font size as needed */
+    }
+  </style>
+
+</head>
+<body>
+<div class="header-content">
+  <img src="https://i.imgur.com/cvXxGZe.png" alt="L.A.S Banking System Logo" class="logo">
+</div>
+<div class="container">
+  <div class="sidebar">
+    <nav>
+      <ul class="nav-list">
+        <li><a href="#" id="openAccountLink">Open an account</a></li>
+        <li><a href="#" id="closeAccountLink">Close an account</a></li>
+        <li><a href="ApproveCredit.html">Approve/Deny credit line</a></li>
+        <li><a href="/logout" class="logout-button">Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="main-content">
+    <div class="heading-container">
+      <h1 th:text="'Hello '+ ${currentUser}"> </h1>
+      <h4>Customer Information</h4>
+    </div>
+    <div class="search-container">
+      <input type="text" id="searchBox" placeholder="Enter account ID" class="searchBarPosition">
+      <button id="searchBtn">Enter</button>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Account ID</th>
+        <th>Balance</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Create an account</h2>
+    <form id="openAccountForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required><br>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required><br>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br>
+      <label for="password">Password:</label>
+      <input type="text" id="password" name="password" required><br>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required><br>
+      <label for="address">Street address:</label>
+      <input type="text" id="address" name="address" required><br>
+      <label for="zip">Postal code:</label>
+      <input type="text" id="zip" name="zip" required><br>
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" required><br>
+      <label for="dob">Date of Birth:</label>
+      <input type="text" id="dob" name="dob" required><br>
+      <label for="ssn">Social Security Number:</label>
+      <input type="text" id="ssn" name="ssn" required><br>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+</div>
+<div id="closeAccount" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Close an account</h2>
+    <form id="closeAccountForm">
+      <label for="accNum">Account Number:</label>
+      <input type="text" id="accNum" name="accNum" required><br>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+</div>
+<hr class="bg-white my-2">
+<footer class="bg-dark text-white text-center py-4">
+  <div class="container">
+    <div class="mb-3">
+      &copy; 2023 L.A.S Banking System
+    </div>
+    <div class="mb-3">
+      Follow us on [Social Media Links Here]
+    </div>
+    <div class="d-inline-block mr-3">
+      <i class="fas fa-phone-alt"></i> Phone: 1-888-888-8888
+    </div>
+    <div class="d-inline-block">
+      <i class="fas fa-map-marker-alt"></i> Address: 1400 Spring Garden St, Greensboro, NC 27412
+    </div>
+  </div>
+</footer>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const openAccountLink = document.querySelector("#openAccountLink");
+    const openAccountModal = document.getElementById("myModal");
+    const closeAccountLink = document.querySelector("#closeAccountLink");
+    const closeAccountModal = document.getElementById("closeAccount");
+
+    function openOpenAccountModal() {
+      openAccountModal.style.display = "block";
+    }
+
+    function closeOpenAccountModal() {
+      openAccountModal.style.display = "none";
+    }
+
+    function openCloseAccountModal() {
+      closeAccountModal.style.display = "block";
+    }
+
+    function closeCloseAccountModal() {
+      closeAccountModal.style.display = "none";
+    }
+
+    // Fetch and populate the table with customer information
+    function populateTable() {
+      fetch('http://localhost:8080/api/clients/getAll')
+              .then(response => response.json())
+              .then(data => {
+                const tableBody = document.querySelector('.table tbody');
+                tableBody.innerHTML = ''; // Clear existing table rows
+
+                data.forEach(client => {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                        <td>${client.firstName} ${client.lastName}</td>
+                        <td>${client.accountID}</td>
+                        <td>${client.balance}</td>
+                    `;
+                  tableBody.appendChild(row);
+                });
+              })
+              .catch(error => {
+                console.error('Error fetching customer information:', error);
+              });
+    }
+
+    // Call the function to populate the table when the page loads
+    populateTable();
+
+    // Search functionality
+    const searchBtn = document.getElementById('searchBtn');
+    const searchBox = document.getElementById('searchBox');
+
+    searchBtn.addEventListener('click', function () {
+      const searchTerm = searchBox.value.trim();
+
+      if (searchTerm !== '') {
+        searchClientsByAccountID(searchTerm);
+      } else {
+        // If the search box is empty, display all clients
+        populateTable();
+      }
+    });
+
+    function searchClientsByAccountID(accountID) {
+      fetch(`http://localhost:8080/api/clients/getByAccountID/${accountID}`)
+              .then(response => response.json())
+              .then(data => {
+                const tableBody = document.querySelector('.table tbody');
+                tableBody.innerHTML = ''; // Clear existing table rows
+
+                if (data) {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                        <td>${data.firstName} ${data.lastName}</td>
+                        <td>${data.accountID}</td>
+                        <td>${data.balance}</td>
+                    `;
+                  tableBody.appendChild(row);
+                } else {
+                  // Handle case where no client is found with the given account ID
+                  console.log(`No client found with Account ID: ${accountID}`);
+                  alert(`No client found with Account ID: ${accountID}`);
+                }
+              })
+              .catch(error => {
+                console.error('Error searching for client:', error);
+              });
+    }
+
+    openAccountLink.addEventListener("click", openOpenAccountModal);
+    const openAccountCloseButton = openAccountModal.querySelector(".close");
+    openAccountCloseButton.addEventListener("click", closeOpenAccountModal);
+
+    closeAccountLink.addEventListener("click", openCloseAccountModal);
+    const closeAccountCloseButton = closeAccountModal.querySelector(".close");
+    closeAccountCloseButton.addEventListener("click", closeCloseAccountModal);
+
+    // Handle form submission for opening an account
+    const openAccountForm = document.getElementById("openAccountForm");
+    openAccountForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(openAccountForm);
+
+      // Convert form data to JSON manually, including proper handling of the date field
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        // Update the keys to match the names in your HTML form
+        const updatedKey = key.charAt(0).toLowerCase() + key.slice(1);
+        jsonData[updatedKey] = updatedKey === 'dob' ? new Date(value).toISOString() : value;
+      });
+
+      // Send data to the backend using fetch API
+      fetch('http://localhost:8080/api/clients/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+      })
+              .then(response => response.json())
+              .then(data => {
+                // Handle success, e.g., show a success message
+                console.log('Client created successfully:', data);
+                alert('Client created successfully!');
+                closeOpenAccountModal();
+              })
+              .catch(error => {
+                // Handle error, e.g., show an error message
+                console.error('Error creating client:', error);
+                alert('Error creating client. Please check your input.');
+              });
+    });
+
+    // Handle form submission for closing an account
+    const closeAccountForm = document.getElementById("closeAccountForm");
+    closeAccountForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const accountID = closeAccountForm.querySelector("#accNum").value;
+
+      // Send request to the backend to close the account
+      fetch(`http://localhost:8080/api/clients/close/${accountID}`, {
+        method: 'DELETE',
+      })
+              .then(response => {
+                if (response.ok) {
+                  // Handle success, e.g., show a success message
+                  console.log('Account closed successfully');
+                  alert('Account closed successfully!');
+                  closeCloseAccountModal();
+                } else {
+                  // Handle error, e.g., show an error message
+                  console.error('Error closing account:', response.statusText);
+                  alert('Error closing account. Please check the account ID.');
+                }
+              })
+              .catch(error => {
+                console.error('Error closing account:', error);
+                alert('Error closing account. Please try again.');
+              });
+    });
+  });
+</script>
+
+</html>
