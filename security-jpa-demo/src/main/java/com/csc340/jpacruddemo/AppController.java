@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.csc340.jpacruddemo.user.User;
 
 
 @Controller
@@ -18,18 +19,24 @@ public class AppController {
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String dashboard(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName(); // 获取当前登录的用户名
         String role = auth.getAuthorities().toString();
+        model.addAttribute("currentUser", username);
 
         if (role.contains("ADMIN")) {
             return "index";
         } else if (role.contains("BANKER")) {
-            return "banker_dashboard";
+            return "Banker";
         } else if (role.contains("USER")) {
-            return "CreditCard";
+            User user = userService.findByUserName(username);
+            model.addAttribute("accountNumber", user.getAccountNumber());
+            model.addAttribute("accountBalance", user.getBalance());
+            return "Customer";
         }
 
         return "login";
     }
+
 
 
     @GetMapping("/login")

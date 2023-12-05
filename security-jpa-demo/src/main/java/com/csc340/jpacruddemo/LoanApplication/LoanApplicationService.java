@@ -77,16 +77,15 @@ public class LoanApplicationService {
     public LoanApplication submitLoanApplication(LoanApplication loanApplication) {
         LoanApplication savedApplication = repository.save(loanApplication);
 
-
-        auditService.logAction(
-                getCurrentUserId(),
-                "SUBMIT",
-                "Submitted new loan application for amount: " + loanApplication.getAmount(),
-                savedApplication.getId()
-        );
+        // 记录审计日志
+        Long userId = getCurrentUserId();
+        String actionDescription = "Submitted loan application for amount: " + loanApplication.getAmount();
+        Long affectedEntityId = savedApplication.getId();
+        auditService.logAction(userId, "SUBMIT", actionDescription, affectedEntityId);
 
         return savedApplication;
     }
+
 
     private Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -108,5 +107,11 @@ public class LoanApplicationService {
             // 处理异常
             return false;
         }
+    }
+    public LoanApplication submitCustomerLoanApplication(LoanApplication loanApplication) {
+        // 你可以在这里添加任何特定于客户的逻辑
+        // 例如，设置状态为“PENDING”
+        loanApplication.setStatus("PENDING");
+        return saveOrUpdateLoanApplication(loanApplication);
     }
 }

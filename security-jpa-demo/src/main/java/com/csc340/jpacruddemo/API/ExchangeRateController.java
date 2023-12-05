@@ -1,5 +1,4 @@
 package com.csc340.jpacruddemo.API;
-/*
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,4 +27,3 @@ public class ExchangeRateController {
     }
 
 }
-        */

@@ -1,5 +1,6 @@
 package com.csc340.jpacruddemo.user;
 
+import com.csc340.jpacruddemo.user.User;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,7 +9,8 @@ import org.springframework.stereotype.Service;
 import com.csc340.jpacruddemo.Audit.AuditService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
-
+import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -117,4 +119,21 @@ public class UserService {
             );
         }
     }
+    public void updateBalance(long userId, BigDecimal newBalance) {
+        User user = repo.findById(userId).orElseThrow(() ->
+                new UsernameNotFoundException("User not found with id: " + userId));
+        user.setBalance(newBalance);
+        repo.save(user);
+        // 可能还要添加一些审计日志
+    }
+
+    public User findByAccountNumber(String accountNumber) {
+        return repo.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new UsernameNotFoundException("Account not found: " + accountNumber));
+    }
+    public User findByUserName(String username) {
+        return repo.findByUserName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    }
+
 }

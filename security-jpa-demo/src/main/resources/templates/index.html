@@ -222,11 +222,14 @@
                 <input type="text" id="searchBox" placeholder="Enter Information">
                 <button id="searchBtn">Enter</button>
             </div>
+            <h1 th:text="'Hello '+ ${currentUser}"> </h1>
             <h4>Pending Loan Applications</h4>
             <table class="table">
                 <thead>
                 <tr>
                     <th>Applicant ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
                     <th>Amount</th>
                     <th>Purpose</th>
                     <th>Status</th>
@@ -304,6 +307,8 @@
             const row = `
         <tr class="${rowClass}" data-application-id="${app.id}">
             <td>${app.applicantId}</td>
+            <td>${app.name}</td>
+            <td>${app.email}</td>
             <td>${app.amount}</td>
             <td>${app.purpose}</td>
             <td>${app.status}</td>
@@ -333,11 +338,11 @@
         const isConfirmed = confirm("Are you sure you want to remove this loan application?");
 
         if (isConfirmed) {
-            // 用户确认移除
+
             fetch('/loan-applications/' + applicationId + '/remove', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {
-                        row.remove(); // 从表格中移除行
+                        row.remove();
                     } else {
                         alert('Error: Unable to remove application');
                     }

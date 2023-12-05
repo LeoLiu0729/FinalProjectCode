@@ -22,4 +22,6 @@ public class LoanApplication {
     private String purpose;
     private LocalDateTime applicationDate;
     private String status;
+    private String name;
+    private String email;
     }

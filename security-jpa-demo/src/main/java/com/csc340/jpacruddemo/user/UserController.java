@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.math.BigDecimal;
+import java.util.List;
+import org.springframework.security.core.context.SecurityContextHolder;
+import java.security.Principal;
 
 
 @Controller
@@ -24,7 +28,7 @@ public class UserController {
 
     @GetMapping("/all")
     public String getAllUsers(Model model,
-                              @RequestParam(name = "continue",required = false) String cont) {
+                              @RequestParam(name = "continue", required = false) String cont) {
         model.addAttribute("userList", service.getAllUsers());
         return "user/list-users";
     }
@@ -35,7 +39,7 @@ public class UserController {
         return "user/user-detail";
     }
 
-    @GetMapping ("/delete/id={id}")
+    @GetMapping("/delete/id={id}")
     public String deleteUser(@PathVariable long id, Model model) {
         service.deleteUser(id);
         return "redirect:/user/all";
@@ -64,5 +68,4 @@ public class UserController {
         model.addAttribute("user", service.getUser(id));
         return "user/update-user";
     }
-
 }

@@ -2,12 +2,16 @@ package com.csc340.jpacruddemo.LoanApplication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
+
+
 
 
 import java.util.List;
-
+@Controller
 @RestController
 @RequestMapping("/loan-applications")
 public class LoanApplicationController {
@@ -34,6 +38,7 @@ public class LoanApplicationController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @DeleteMapping("/{id}")
     public void deleteLoanApplication(@PathVariable Long id) {
         service.deleteLoanApplication(id);
@@ -50,6 +55,7 @@ public class LoanApplicationController {
         service.denyLoanApplication(id);
         return ResponseEntity.ok().build();
     }
+
     @PostMapping("/{id}/remove")
     public ResponseEntity<?> removeLoanApplication(@PathVariable Long id) {
         boolean removed = service.removeLoanApplication(id);
@@ -59,5 +65,4 @@ public class LoanApplicationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }
