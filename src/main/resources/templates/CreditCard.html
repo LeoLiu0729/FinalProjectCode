@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="CreditCard/StylesheetCreditCard.css">
+    <title>Credit Card</title>
+    <style>
+        html{
+            background-color: #D3D3D3;
+        }
+
+        .logo {
+            width: 300px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            background-color: #333333;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .nav{
+            width: 100%;
+            padding: 10px 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        nav ul {
+            width: 100%;
+            text-align: right;
+        }
+
+        nav ul li{
+            display: inline-block;
+            list-style: none;
+            margin: 0 20px;
+        }
+
+        nav ul li a{
+            color: #fff;
+            text-decoration: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #0070c1;
+        }
+
+        body {
+            font-family: Arial;
+            font-size: 17px;
+            padding: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%;
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%;
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%;
+            flex: 75%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75 {
+            padding: 0 16px;
+        }
+
+        .container {
+            background-color: #f2f2f2;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #2196F3;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        .footer-background-color {
+            box-sizing: border-box;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+
+        footer {
+            position: -ms-device-fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            background-color:  #CAF4F4;
+        }
+    </style>
+</head>
+<div style="text-align: center;">
+    <img src="https://i.imgur.com/cvXxGZe.png" alt="L.A.S Banking System Logo" class="logo">
+</div>
+<div class="hero">
+    <nav>
+        <ul>
+            <li><strong><a href="/">Home</a></strong></li>
+            <li><strong><a href="/">Contact</a></strong></li>
+            <li><strong><a href="/transfers/form">Transfer Funds</a></strong></li>
+            <li><strong><a href="/withdrawaldeposit/showForm">Withdrawal/Deposit</a></strong></li>
+            <li><strong><a href="/CreditCard/apply">Credit Card</a></strong></li>
+            <li><strong><a href="/Loan/apply">Apply for loan</a></strong></li>
+            <!-- <li><strong><a href="/home">Logout</a></strong></li> -->
+            <form class="form-inline" th:action="@{/logout}" method="post">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+            </form>
+        </ul>
+    </nav>
+</div>
+
+<body>
+<div class="row">
+    <div class="col-75">
+        <div class="container">
+            <form action="/CreditCard/apply" method="post">
+
+                <div class="row">
+                    <div class="col-50">
+                        <h3>Billing Address</h3>
+                        <label for="full_name"><i class="fa fa-user"></i> Full Name</label>
+                        <input type="text" id="full_name" name="full_name" placeholder="John M. Doe">
+                        <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                        <input type="text" id="email" name="email" placeholder="john@example.com">
+                        <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                        <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                        <label for="city"><i class="fa fa-institution"></i> City</label>
+                        <input type="text" id="city" name="city" placeholder="New York">
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="state">State</label>
+                                <input type="text" id="state" name="state" placeholder="NY">
+                            </div>
+                            <div class="col-50">
+                                <label for="zip">Zip</label>
+                                <input type="text" id="zip" name="zip" placeholder="10001">
+                            </div>
+                            <div class="col-50">
+                                <label for="credit_limit">Credit-limit</label>
+                                <input type="text" id="credit_limit" name="credit_limit" placeholder="Limit of 1000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" value="Continue to Apply for CreditCard" class="btn">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<hr class="bg-white my-2">
+<footer class="footer-background-color">
+    <div>
+        <div class="mb-3">
+            &copy; 2023 L.A.S Banking System
+        </div>
+        <div class="mb-3">
+            Follow us on [Social Media Links Here]
+        </div>
+        <div class="d-inline-block mr-3">
+            <i class="fas fa-phone-alt"></i> Phone: 1-888-888-8888
+        </div>
+        <div class="d-inline-block">
+            <i class="fas fa-map-marker-alt"></i> Address: 1400 Spring Garden St, Greensboro, NC 27412
+        </div>
+    </div>
+</footer>
+</html>
